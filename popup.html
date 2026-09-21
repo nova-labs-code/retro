@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      width: 310px;
+      padding: 14px;
+      font-family: 'Courier New', monospace;
+      background: #0d1117;
+      color: #00ff66;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #00ff66;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+    }
+    .title {
+      font-weight: bold;
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+    .toggle-btn {
+      padding: 6px 12px;
+      background: #161b22;
+      border: 1px solid #00ff66;
+      color: #00ff66;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 4px;
+    }
+    .toggle-btn.off {
+      border-color: #ff3333;
+      color: #ff3333;
+    }
+    .site-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .action-btn {
+      padding: 6px 10px;
+      background: #161b22;
+      border: 1px solid #30363d;
+      color: #8b949e;
+      font-family: inherit;
+      font-size: 11px;
+      cursor: pointer;
+      text-align: left;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+    .action-btn:hover {
+      border-color: #00ff66;
+      color: #00ff66;
+    }
+    .action-btn.active-disabled {
+      border-color: #ffaa00;
+      color: #ffaa00;
+      background: #211a00;
+    }
+    .control-group {
+      margin-bottom: 10px;
+    }
+    label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      margin-bottom: 3px;
+      color: #8b949e;
+    }
+    select, input[type="range"] {
+      width: 100%;
+      background: #161b22;
+      color: #00ff66;
+      border: 1px solid #30363d;
+      padding: 5px;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    .section-title {
+      font-size: 11px;
+      color: #58a6ff;
+      margin: 12px 0 6px 0;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-bottom: 1px dashed #30363d;
+      padding-bottom: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <span class="title">RETRO FILTER</span>
+    <button id="toggleBtn" class="toggle-btn">ON</button>
+  </div>
+
+  <div class="site-actions">
+    <button id="siteToggleBtn" class="action-btn">Disable on this site</button>
+    <button id="pageToggleBtn" class="action-btn">Disable on this page</button>
+  </div>
+
+  <div class="section-title">Presets & Font</div>
+
+  <div class="control-group">
+    <label for="themeSelect">AESTHETIC PRESET</label>
+    <select id="themeSelect">
+      <option value="green_crt">80s Green Phosphor CRT</option>
+      <option value="amber_terminal">70s Amber Terminal</option>
+      <option value="synthwave">Synthwave Cyberpunk 84</option>
+      <option value="gameboy">GameBoy 4-Bit Olive</option>
+      <option value="geocities_90s">90s GeoCities Chaos</option>
+      <option value="cyber_deck">CyberDeck Blue Phosphor</option>
+    </select>
+  </div>
+
+  <div class="control-group">
+    <label for="fontSelect">RETRO TYPOGRAPHY</label>
+    <select id="fontSelect">
+      <option value="VT323">VT323 (80s CRT Terminal)</option>
+      <option value="Press Start 2P">Press Start 2P (8-Bit Arcade)</option>
+      <option value="Share Tech Mono">Share Tech Mono (Amber Radar)</option>
+      <option value="Courier New">Courier New (Typewriter)</option>
+      <option value="Comic Sans MS">Comic Sans MS (90s Web)</option>
+    </select>
+  </div>
+
+  <div class="section-title">Hardware FX Sliders</div>
+
+  <div class="control-group">
+    <label><span>SCANLINES</span><span id="scanlinesVal">50%</span></label>
+    <input type="range" id="scanlines" min="0" max="100">
+  </div>
+
+  <div class="control-group">
+    <label><span>CRT CURVATURE</span><span id="curvatureVal">30%</span></label>
+    <input type="range" id="curvature" min="0" max="100">
+  </div>
+
+  <div class="control-group">
+    <label><span>MICRO-FLICKER</span><span id="flickerVal">20%</span></label>
+    <input type="range" id="flicker" min="0" max="100">
+  </div>
+
+  <div class="control-group">
+    <label><span>PIXEL DOWN SCALE</span><span id="pixelationVal">0px</span></label>
+    <input type="range" id="pixelation" min="0" max="5" step="0.5">
+  </div>
+
+  <div class="control-group">
+    <label><span>BRIGHTNESS</span><span id="brightnessVal">100%</span></label>
+    <input type="range" id="brightness" min="50" max="150">
+  </div>
+
+  <div class="control-group">
+    <label><span>CONTRAST</span><span id="contrastVal">120%</span></label>
+    <input type="range" id="contrast" min="50" max="200">
+  </div>
+
+  <div class="control-group">
+    <label><span>HUE SHIFT</span><span id="hueShiftVal">0°</span></label>
+    <input type="range" id="hueShift" min="0" max="360">
+  </div>
+
+  <div class="control-group">
+    <label><span>FILM NOISE</span><span id="noiseVal">10%</span></label>
+    <input type="range" id="noise" min="0" max="100">
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

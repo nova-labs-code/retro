@@ -1,0 +1,1029 @@
+/* ============================================================
+   RETROSTYLE HUE-BASED CRT ENGINE
+   ============================================================
+
+   IMPORTANT
+   ------------------------------------------------------------
+   NO FILTER IS APPLIED TO BODY.
+
+   The retro filter is applied only to:
+       .retro-filter-target
+
+   This is required so protected media can remain original.
+
+   Original text colors remain visually distinct.
+
+   Example:
+
+       dark gray text  -> dark retro tone
+       gray text       -> medium retro tone
+       white text      -> bright retro tone
+       blue link       -> different retro tone
+
+   Protected:
+       IMG
+       VIDEO
+       CANVAS
+       SVG IMAGE
+       IFRAME
+   ============================================================ */
+
+
+/* ============================================================
+   MASTER VARIABLES
+   ============================================================ */
+
+html.retro-filter-active {
+
+  --retro-font:
+    'VT323',
+    monospace;
+
+  --retro-display-font:
+    'Press Start 2P',
+    monospace;
+
+  --retro-ui-font:
+    'Share Tech Mono',
+    monospace;
+
+
+  /* User controls */
+
+  --retro-brightness:
+    100%;
+
+  --retro-contrast:
+    120%;
+
+  --retro-hue:
+    0deg;
+
+  --retro-saturation:
+    100%;
+
+
+  /* CRT */
+
+  --retro-scanlines:
+    0.5;
+
+  --retro-curvature:
+    0.3;
+
+  --retro-flicker:
+    0.2;
+
+  --retro-pixelation:
+    0px;
+
+  --retro-noise:
+    0.1;
+
+
+  /* Default selection */
+
+  --retro-selection-r:
+    51;
+
+  --retro-selection-g:
+    255;
+
+  --retro-selection-b:
+    51;
+
+  --retro-selection-opacity:
+    0.35;
+
+  --retro-selection-text:
+    #000000;
+}
+
+
+/* ============================================================
+   GREEN CRT
+   ============================================================ */
+
+html.retro-filter-active[data-retro-theme="green_crt"] {
+
+  --retro-theme-hue:
+    85deg;
+
+  --retro-theme-saturation:
+    280%;
+
+  --retro-theme-contrast:
+    125%;
+
+  --retro-theme-brightness:
+    100%;
+
+  --retro-glow-color:
+    #33ff33;
+
+
+  --retro-selection-r:
+    51;
+
+  --retro-selection-g:
+    255;
+
+  --retro-selection-b:
+    51;
+
+  --retro-selection-opacity:
+    0.35;
+
+  --retro-selection-text:
+    #000000;
+}
+
+
+/* ============================================================
+   AMBER TERMINAL
+   ============================================================ */
+
+html.retro-filter-active[data-retro-theme="amber_terminal"] {
+
+  --retro-theme-hue:
+    25deg;
+
+  --retro-theme-saturation:
+    320%;
+
+  --retro-theme-contrast:
+    125%;
+
+  --retro-theme-brightness:
+    100%;
+
+  --retro-glow-color:
+    #ffb000;
+
+
+  --retro-selection-r:
+    255;
+
+  --retro-selection-g:
+    176;
+
+  --retro-selection-b:
+    0;
+
+  --retro-selection-opacity:
+    0.40;
+
+  --retro-selection-text:
+    #000000;
+}
+
+
+/* ============================================================
+   SYNTHWAVE
+   ============================================================ */
+
+html.retro-filter-active[data-retro-theme="synthwave"] {
+
+  --retro-theme-hue:
+    290deg;
+
+  --retro-theme-saturation:
+    180%;
+
+  --retro-theme-contrast:
+    125%;
+
+  --retro-theme-brightness:
+    100%;
+
+  --retro-glow-color:
+    #ff00aa;
+
+
+  /* Neon magenta selection */
+
+  --retro-selection-r:
+    255;
+
+  --retro-selection-g:
+    0;
+
+  --retro-selection-b:
+    200;
+
+  /* Transparency */
+
+  --retro-selection-opacity:
+    0.65;
+
+  /* Selected text is WHITE */
+
+  --retro-selection-text:
+    #ffffff;
+}
+
+
+/* ============================================================
+   GAMEBOY
+   ============================================================ */
+
+html.retro-filter-active[data-retro-theme="gameboy"] {
+
+  --retro-theme-hue:
+    55deg;
+
+  --retro-theme-saturation:
+    150%;
+
+  --retro-theme-contrast:
+    115%;
+
+  --retro-theme-brightness:
+    100%;
+
+  --retro-glow-color:
+    #9bbc0f;
+
+
+  --retro-selection-r:
+    155;
+
+  --retro-selection-g:
+    188;
+
+  --retro-selection-b:
+    15;
+
+  --retro-selection-opacity:
+    0.45;
+
+  --retro-selection-text:
+    #0f380f;
+}
+
+
+/* ============================================================
+   GEOCITIES 90s
+   ============================================================ */
+
+html.retro-filter-active[data-retro-theme="geocities_90s"] {
+
+  --retro-theme-hue:
+    220deg;
+
+  --retro-theme-saturation:
+    180%;
+
+  --retro-theme-contrast:
+    135%;
+
+  --retro-theme-brightness:
+    105%;
+
+  --retro-glow-color:
+    #ff00ff;
+
+
+  --retro-selection-r:
+    255;
+
+  --retro-selection-g:
+    0;
+
+  --retro-selection-b:
+    255;
+
+  --retro-selection-opacity:
+    0.50;
+
+  --retro-selection-text:
+    #ffffff;
+}
+
+
+/* ============================================================
+   CYBER DECK
+   ============================================================ */
+
+html.retro-filter-active[data-retro-theme="cyber_deck"] {
+
+  --retro-theme-hue:
+    180deg;
+
+  --retro-theme-saturation:
+    240%;
+
+  --retro-theme-contrast:
+    125%;
+
+  --retro-theme-brightness:
+    100%;
+
+  --retro-glow-color:
+    #00eaff;
+
+
+  --retro-selection-r:
+    0;
+
+  --retro-selection-g:
+    234;
+
+  --retro-selection-b:
+    255;
+
+  --retro-selection-opacity:
+    0.50;
+
+  --retro-selection-text:
+    #ffffff;
+}
+
+
+/* ============================================================
+   FONT
+   ============================================================ */
+
+html.retro-filter-active,
+html.retro-filter-active body,
+html.retro-filter-active body * {
+
+  font-family:
+    var(--retro-font),
+    monospace !important;
+}
+
+
+/* ============================================================
+   SAFE RETRO FILTER TARGET
+   ============================================================
+
+   IMPORTANT:
+
+   This is the ONLY place the main color filter should be
+   applied.
+
+   The content script must NOT put .retro-filter-target on
+   BODY or on an ancestor containing protected media.
+   ============================================================ */
+
+html.retro-filter-active
+.retro-filter-target {
+
+  filter:
+
+    hue-rotate(
+      var(--retro-theme-hue)
+    )
+
+    saturate(
+      var(--retro-theme-saturation)
+    )
+
+    brightness(
+      var(--retro-theme-brightness)
+    )
+
+    contrast(
+      var(--retro-theme-contrast)
+    )
+
+    hue-rotate(
+      var(--retro-hue)
+    )
+
+    blur(
+      var(--retro-pixelation)
+    )
+
+    !important;
+
+  transition:
+    filter 0.15s ease !important;
+}
+
+
+/* ============================================================
+   NEVER FILTER MEDIA
+   ============================================================ */
+
+html.retro-filter-active
+.retro-media-protected {
+
+  filter:
+    none !important;
+
+  mix-blend-mode:
+    normal !important;
+
+  opacity:
+    1 !important;
+}
+
+
+/* ============================================================
+   IMAGE
+   ============================================================ */
+
+html.retro-filter-active
+img {
+
+  filter:
+    none !important;
+
+  mix-blend-mode:
+    normal !important;
+
+  opacity:
+    1 !important;
+}
+
+
+/* ============================================================
+   VIDEO
+   ============================================================ */
+
+html.retro-filter-active
+video {
+
+  filter:
+    none !important;
+
+  mix-blend-mode:
+    normal !important;
+
+  opacity:
+    1 !important;
+}
+
+
+/* ============================================================
+   CANVAS
+   ============================================================ */
+
+html.retro-filter-active
+canvas {
+
+  filter:
+    none !important;
+
+  mix-blend-mode:
+    normal !important;
+
+  opacity:
+    1 !important;
+}
+
+
+/* ============================================================
+   SVG IMAGE
+   ============================================================ */
+
+html.retro-filter-active
+svg image {
+
+  filter:
+    none !important;
+}
+
+
+/* ============================================================
+   IFRAMES
+   ============================================================ */
+
+html.retro-filter-active
+iframe {
+
+  filter:
+    none !important;
+
+  mix-blend-mode:
+    normal !important;
+}
+
+
+/* ============================================================
+   HEADINGS
+   ============================================================ */
+
+html.retro-filter-active
+body :where(
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6
+) {
+
+  font-family:
+    var(--retro-display-font),
+    monospace !important;
+}
+
+
+/* ============================================================
+   TERMINAL ELEMENTS
+   ============================================================ */
+
+html.retro-filter-active
+body :where(
+  code,
+  pre,
+  kbd,
+  samp
+) {
+
+  font-family:
+    var(--retro-ui-font),
+    monospace !important;
+}
+
+
+/* ============================================================
+   RETRO GLOW
+   ============================================================ */
+
+html.retro-filter-active
+.retro-filter-target {
+
+  text-shadow:
+    0 0 1px
+    var(--retro-glow-color);
+}
+
+
+/* ============================================================
+   LINKS
+   ============================================================
+
+   IMPORTANT:
+
+   No color is assigned.
+
+   Their original color remains different from normal text
+   and is transformed by the safe target filter.
+   ============================================================ */
+
+html.retro-filter-active
+body a {
+
+  text-shadow:
+    0 0 2px
+    var(--retro-glow-color);
+}
+
+
+/* ============================================================
+   LINK HOVER
+   ============================================================ */
+
+html.retro-filter-active
+body a:hover {
+
+  filter:
+    brightness(1.25)
+    saturate(1.15);
+
+  text-shadow:
+    0 0 3px
+    var(--retro-glow-color),
+
+    0 0 8px
+    var(--retro-glow-color);
+}
+
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+
+html.retro-filter-active
+body button {
+
+  font-family:
+    var(--retro-ui-font),
+    monospace !important;
+
+  text-shadow:
+    0 0 2px
+    var(--retro-glow-color);
+}
+
+
+/* ============================================================
+   FORM CONTROLS
+   ============================================================ */
+
+html.retro-filter-active
+body :where(
+  input,
+  textarea,
+  select,
+  option
+) {
+
+  font-family:
+    var(--retro-ui-font),
+    monospace !important;
+
+  caret-color:
+    var(--retro-glow-color);
+}
+
+
+/* ============================================================
+   CRT TINT
+   ============================================================
+
+   Very low opacity.
+
+   This is an overlay, NOT a replacement background color.
+   ============================================================ */
+
+html.retro-filter-active::before {
+
+  content:
+    "";
+
+  position:
+    fixed;
+
+  inset:
+    0;
+
+  width:
+    100vw;
+
+  height:
+    100vh;
+
+  pointer-events:
+    none;
+
+  z-index:
+    2147483645;
+
+  background:
+    rgba(
+      0,
+      255,
+      50,
+      0.025
+    );
+
+  mix-blend-mode:
+    color;
+
+  opacity:
+    1;
+}
+
+
+/* ============================================================
+   GREEN TINT
+   ============================================================ */
+
+html.retro-filter-active[data-retro-theme="green_crt"]::before {
+
+  background:
+    rgba(
+      0,
+      255,
+      60,
+      0.025
+    );
+}
+
+
+/* ============================================================
+   AMBER TINT
+   ============================================================ */
+
+html.retro-filter-active[data-retro-theme="amber_terminal"]::before {
+
+  background:
+    rgba(
+      255,
+      150,
+      0,
+      0.025
+    );
+}
+
+
+/* ============================================================
+   SYNTHWAVE TINT
+   ============================================================ */
+
+html.retro-filter-active[data-retro-theme="synthwave"]::before {
+
+  background:
+    rgba(
+      255,
+      0,
+      180,
+      0.025
+    );
+}
+
+
+/* ============================================================
+   GAMEBOY TINT
+   ============================================================ */
+
+html.retro-filter-active[data-retro-theme="gameboy"]::before {
+
+  background:
+    rgba(
+      150,
+      190,
+      20,
+      0.025
+    );
+}
+
+
+/* ============================================================
+   GEOCITIES TINT
+   ============================================================ */
+
+html.retro-filter-active[data-retro-theme="geocities_90s"]::before {
+
+  background:
+    rgba(
+      0,
+      100,
+      255,
+      0.025
+    );
+}
+
+
+/* ============================================================
+   CYBER DECK TINT
+   ============================================================ */
+
+html.retro-filter-active[data-retro-theme="cyber_deck"]::before {
+
+  background:
+    rgba(
+      0,
+      220,
+      255,
+      0.025
+    );
+}
+
+
+/* ============================================================
+   CRT SCANLINES + VIGNETTE
+   ============================================================ */
+
+html.retro-filter-active::after {
+
+  content:
+    "";
+
+  position:
+    fixed;
+
+  inset:
+    0;
+
+  width:
+    100vw;
+
+  height:
+    100vh;
+
+  pointer-events:
+    none;
+
+  z-index:
+    2147483646;
+
+  background:
+
+    /* Scanlines */
+
+    repeating-linear-gradient(
+      to bottom,
+
+      transparent
+      0px,
+
+      transparent
+      2px,
+
+      rgba(
+        0,
+        0,
+        0,
+        calc(
+          var(--retro-scanlines)
+          * 0.32
+        )
+      )
+      3px,
+
+      rgba(
+        0,
+        0,
+        0,
+        calc(
+          var(--retro-scanlines)
+          * 0.32
+        )
+      )
+      4px
+    ),
+
+    /* Vignette */
+
+    radial-gradient(
+      ellipse at center,
+
+      transparent
+      45%,
+
+      rgba(
+        0,
+        0,
+        0,
+        calc(
+          var(--retro-curvature)
+          * 0.70
+        )
+      )
+      100%
+    );
+
+  background-size:
+    100% 4px,
+    100% 100%;
+
+  animation:
+    retro-flicker
+    calc(
+      0.12s /
+      max(
+        var(--retro-flicker),
+        0.01
+      )
+    )
+    infinite alternate;
+}
+
+
+/* ============================================================
+   FLICKER
+   ============================================================ */
+
+@keyframes retro-flicker {
+
+  0% {
+    opacity:
+      0.90;
+  }
+
+  50% {
+    opacity:
+      0.96;
+  }
+
+  100% {
+    opacity:
+      1;
+  }
+}
+
+
+/* ============================================================
+   TEXT SELECTION
+   ============================================================ */
+
+html.retro-filter-active
+body
+::selection {
+
+  background:
+    rgba(
+      var(--retro-selection-r),
+      var(--retro-selection-g),
+      var(--retro-selection-b),
+      var(--retro-selection-opacity)
+    ) !important;
+
+  color:
+    var(--retro-selection-text) !important;
+
+  text-shadow:
+    none !important;
+}
+
+
+/* Firefox */
+
+html.retro-filter-active
+body
+::-moz-selection {
+
+  background:
+    rgba(
+      var(--retro-selection-r),
+      var(--retro-selection-g),
+      var(--retro-selection-b),
+      var(--retro-selection-opacity)
+    ) !important;
+
+  color:
+    var(--retro-selection-text) !important;
+
+  text-shadow:
+    none !important;
+}
+
+
+/* ============================================================
+   SYNTHWAVE SELECTION
+   ============================================================
+
+   Bright translucent neon magenta.
+
+   Selected text is explicitly WHITE.
+   ============================================================ */
+
+html.retro-filter-active[data-retro-theme="synthwave"]
+body
+::selection {
+
+  background:
+    rgba(
+      255,
+      0,
+      200,
+      0.65
+    ) !important;
+
+  color:
+    #ffffff !important;
+
+  text-shadow:
+    0 0 3px
+    #ffffff,
+
+    0 0 7px
+    #ff00aa !important;
+}
+
+
+/* Firefox */
+
+html.retro-filter-active[data-retro-theme="synthwave"]
+body
+::-moz-selection {
+
+  background:
+    rgba(
+      255,
+      0,
+      200,
+      0.65
+    ) !important;
+
+  color:
+    #ffffff !important;
+
+  text-shadow:
+    0 0 3px
+    #ffffff,
+
+    0 0 7px
+    #ff00aa !important;
+}
+
+
+/* ============================================================
+   SELECTION SHOULD NOT BE DARKENED BY RETRO TARGET GLOW
+   ============================================================ */
+
+html.retro-filter-active
+.retro-filter-target
+::selection {
+
+  text-shadow:
+    none !important;
+}
+
+
+/* ============================================================
+   CLEANUP
+   ============================================================ */
+
+html:not(.retro-filter-active)::before,
+html:not(.retro-filter-active)::after {
+
+  content:
+    none !important;
+}
