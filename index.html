@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Retro Web - Make every website look retro.">
+  <title>RETRO WEB // DOWNLOAD</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
+    :root {
+      --green: #00ff41;
+      --dark-green: #00a82b;
+      --darker-green: #003d12;
+      --black: #020502;
+      --panel: #071007;
+      --text: #b8ffc6;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at center, #102510 0%, #030703 70%);
+      color: var(--green);
+      font-family: "VT323", "Courier New", monospace;
+      font-size: 22px;
+      overflow-x: hidden;
+    }
+
+    /* CRT scanlines */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 255, 65, 0.035) 0px,
+        rgba(0, 255, 65, 0.035) 1px,
+        transparent 1px,
+        transparent 4px
+      );
+    }
+
+    /* CRT glow */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9998;
+      box-shadow: inset 0 0 100px rgba(0, 255, 65, 0.1);
+    }
+
+    .screen {
+      width: min(900px, 92%);
+      margin: 45px auto;
+      background: rgba(0, 8, 0, 0.95);
+      border: 3px solid var(--green);
+      box-shadow:
+        0 0 15px rgba(0, 255, 65, 0.35),
+        0 0 50px rgba(0, 255, 65, 0.08),
+        10px 10px 0 var(--darker-green);
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 12px 16px;
+      border-bottom: 3px solid var(--green);
+      background: #071407;
+      font-family: "Press Start 2P", monospace;
+      font-size: 9px;
+    }
+
+    .online::before {
+      content: "● ";
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    header {
+      padding: 55px 25px 40px;
+      text-align: center;
+      border-bottom: 2px dashed var(--green);
+    }
+
+    .logo {
+      margin: 0;
+      font-family: "Press Start 2P", monospace;
+      font-size: clamp(25px, 7vw, 60px);
+      line-height: 1.5;
+      text-shadow:
+        4px 4px 0 #005c19,
+        0 0 20px rgba(0, 255, 65, 0.7);
+      animation: flicker 4s infinite;
+    }
+
+    @keyframes flicker {
+      0%, 18%, 22%, 63%, 64%, 65%, 100% {
+        opacity: 1;
+      }
+
+      20%, 62% {
+        opacity: 0.8;
+      }
+    }
+
+    .subtitle {
+      margin-top: 25px;
+      color: var(--text);
+      font-size: 27px;
+    }
+
+    .content {
+      padding: 35px;
+    }
+
+    .terminal {
+      padding: 22px;
+      margin-bottom: 30px;
+      background: #020502;
+      border: 2px solid var(--green);
+      box-shadow: inset 0 0 25px rgba(0, 255, 65, 0.05);
+    }
+
+    .terminal-title {
+      display: inline-block;
+      padding: 6px 10px;
+      margin-bottom: 15px;
+      background: var(--green);
+      color: #000;
+      font-family: "Press Start 2P", monospace;
+      font-size: 9px;
+    }
+
+    .line {
+      margin: 7px 0;
+    }
+
+    .prompt {
+      color: #fff;
+    }
+
+    .dim {
+      color: #39854a;
+    }
+
+    .ascii {
+      margin: 30px 0;
+      color: var(--dark-green);
+      text-align: center;
+      white-space: pre;
+      overflow-x: auto;
+      font-size: 14px;
+    }
+
+    .download-area {
+      padding: 20px 10px 40px;
+      text-align: center;
+    }
+
+    .download-button {
+      display: inline-block;
+      padding: 18px 28px;
+      background: var(--green);
+      color: #000;
+      border: 4px solid var(--green);
+      box-shadow:
+        7px 7px 0 #006b1b,
+        0 0 25px rgba(0, 255, 65, 0.25);
+      text-decoration: none;
+      font-family: "Press Start 2P", monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      cursor: pointer;
+      transition: 0.1s;
+    }
+
+    .download-button:hover {
+      background: #000;
+      color: var(--green);
+      box-shadow:
+        4px 4px 0 #006b1b,
+        0 0 35px rgba(0, 255, 65, 0.5);
+      transform: translate(3px, 3px);
+    }
+
+    .download-button:active {
+      transform: translate(7px, 7px);
+      box-shadow: none;
+    }
+
+    .download-info {
+      margin-top: 18px;
+      color: #4f9d5f;
+      font-size: 18px;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .feature {
+      padding: 20px;
+      background: var(--panel);
+      border: 2px solid #16752e;
+      transition: 0.15s;
+    }
+
+    .feature:hover {
+      border-color: var(--green);
+      background: #0b180b;
+      box-shadow: 0 0 12px rgba(0, 255, 65, 0.08);
+    }
+
+    .feature h2 {
+      margin: 0 0 10px;
+      color: var(--green);
+      font-family: "Press Start 2P", monospace;
+      font-size: 10px;
+      line-height: 1.7;
+    }
+
+    .feature p {
+      margin: 0;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .install {
+      margin-top: 30px;
+      padding: 22px;
+      border: 2px dashed var(--green);
+      background: #030803;
+    }
+
+    .install h2 {
+      margin-top: 0;
+      font-family: "Press Start 2P", monospace;
+      font-size: 12px;
+    }
+
+    .install ol {
+      margin-bottom: 0;
+      padding-left: 28px;
+      color: var(--text);
+    }
+
+    .install li {
+      margin: 8px 0;
+    }
+
+    code {
+      padding: 2px 6px;
+      background: #000;
+      color: var(--green);
+      border: 1px solid #145b25;
+      font-family: "VT323", monospace;
+    }
+
+    footer {
+      padding: 20px;
+      border-top: 2px dashed var(--green);
+      color: #4f9d5f;
+      text-align: center;
+      font-size: 18px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 600px) {
+      .screen {
+        width: 94%;
+        margin: 20px auto;
+      }
+
+      .content {
+        padding: 20px;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      .top-bar {
+        font-size: 7px;
+      }
+
+      .download-button {
+        font-size: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="screen">
+
+    <div class="top-bar">
+      <span>RETRO_WEB.EXE</span>
+      <span class="online">ONLINE</span>
+    </div>
+
+    <header>
+      <h1 class="logo">RETRO WEB</h1>
+
+      <div class="subtitle">
+        &gt; THE INTERNET, BUT RETRO_
+      </div>
+    </header>
+
+    <section class="content">
+
+      <div class="terminal">
+        <div class="terminal-title">SYSTEM TERMINAL</div>
+
+        <div class="line">
+          <span class="prompt">&gt;</span>
+          BOOTING RETRO_WEB.EXE...
+        </div>
+
+        <div class="line">
+          <span class="prompt">&gt;</span>
+          SCANNING MODERN INTERNET...
+        </div>
+
+        <div class="line">
+          <span class="prompt">&gt;</span>
+          APPLYING RETRO STYLE...
+        </div>
+
+        <div class="line">
+          <span class="prompt">&gt;</span>
+          <span class="dim">████████████████████</span> 100%
+        </div>
+
+        <div class="line">
+          <span class="prompt">&gt;</span>
+          SYSTEM READY_
+        </div>
+      </div>
+
+      <div class="ascii">
+██████╗ ███████╗████████╗██████╗  ██████╗
+██╔══██╗██╔════╝╚══██╔══╝██╔══██╗██╔═══██╗
+██████╔╝█████╗     ██║   ██████╔╝██║   ██║
+██╔══██╗██╔══╝     ██║   ██╔══██╗██║   ██║
+██║  ██║███████╗   ██║   ██║  ██║╚██████╔╝
+╚═╝  ╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝
+      </div>
+
+      <div class="download-area">
+        <a
+          class="download-button"
+          href="download.zip"
+          download="download.zip"
+        >
+          [ DOWNLOAD.ZIP ]
+        </a>
+
+        <div class="download-info">
+          &gt; Browser extension package ready for download.
+        </div>
+      </div>
+
+      <div class="features">
+
+        <article class="feature">
+          <h2>01 // RETRO</h2>
+          <p>
+            Give modern websites an old-school visual makeover.
+          </p>
+        </article>
+
+        <article class="feature">
+          <h2>02 // EVERYWHERE</h2>
+          <p>
+            Bring the retro experience across the websites you visit.
+          </p>
+        </article>
+
+        <article class="feature">
+          <h2>03 // SIMPLE</h2>
+          <p>
+            Install the extension and let it transform the web.
+          </p>
+        </article>
+
+        <article class="feature">
+          <h2>04 // LIGHTWEIGHT</h2>
+          <p>
+            A simple extension designed to give the web a nostalgic look.
+          </p>
+        </article>
+
+      </div>
+
+      <div class="install">
+        <h2>INSTALLATION</h2>
+
+        <ol>
+          <li>Download <code>download.zip</code>.</li>
+          <li>Extract the ZIP file.</li>
+          <li>Open your browser's extensions page.</li>
+          <li>Enable Developer Mode.</li>
+          <li>Select <strong>Load unpacked</strong>.</li>
+          <li>Select the extracted extension folder.</li>
+          <li>Open a website and enjoy the retro web.</li>
+        </ol>
+      </div>
+
+    </section>
+
+    <footer>
+      RETRO WEB // VERSION 1.0 // © 2026
+      <br>
+      INSERT COIN TO CONTINUE_
+    </footer>
+
+  </main>
+
+</body>
+</html>
